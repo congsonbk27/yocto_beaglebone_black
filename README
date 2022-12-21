@@ -26,3 +26,6 @@ Build_yocto BeagleBone black:
 		  ${TOPDIR}/../meta-bbb \
 		"
 	bitbake core-image-minimal
+	
+Build sdk:
+	bitbake core-image-minimal -c populate_sdk
