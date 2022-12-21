@@ -1,0 +1,30 @@
+Build_yocto BeagleBone black:
+    mkdir yocto
+		cd yocto
+		git clone -b dunfell git://git.yoctoproject.org/poky.git poky
+		git clone -b dunfell https://github.com/openembedded/meta-openembedded.git
+		git clone -b dunfell https://github.com/meta-qt5/meta-qt5.git
+		git clone -b dunfell git://git.yoctoproject.org/meta-security.git
+		git clone -b dunfell https://github.com/jumpnow/meta-jumpnow.git
+		git clone -b dunfell https://github.com/jumpnow/meta-bbb.git
+		source poky/oe-init-build-env
+		cp ../meta-bbb/conf/local.conf.sample conf/local.conf
+		cp ../meta-bbb/conf/bblayers.conf.sample conf/bblayers.conf
+
+		vim conf/bblayers.conf 
+		--> change dirrectory meta in BBLAYERS ?= " to right directory
+		
+				BBLAYERS ?= " \
+				  ${TOPDIR}/../poky/meta \
+				  ${TOPDIR}/../poky/meta-poky \
+				  ${TOPDIR}/../meta-openembedded/meta-oe \
+				  ${TOPDIR}/../meta-openembedded/meta-networking \
+				  ${TOPDIR}/../meta-openembedded/meta-perl \
+				  ${TOPDIR}/../meta-openembedded/meta-python \
+				  ${TOPDIR}/../meta-qt5 \
+				  ${TOPDIR}/../meta-security \
+				  ${TOPDIR}/../meta-jumpnow \
+				  ${TOPDIR}/../meta-bbb \
+				"
+		
+		bitbake core-image-minimal
