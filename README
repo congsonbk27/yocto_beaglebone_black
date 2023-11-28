@@ -25,6 +25,11 @@ Build_yocto BeagleBone black:
 		  ${TOPDIR}/../meta-jumpnow \
 		  ${TOPDIR}/../meta-bbb \
 		"
+	vim conf/local.conf
+		add:
+		BB_NUMBER_THREADS = "12"
+		PARALLEL_MAKE = "-j 12"
+
 	bitbake core-image-minimal
 	
 Build sdk:
