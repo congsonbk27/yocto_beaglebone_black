@@ -16,6 +16,7 @@ Build_yocto BeagleBone black:
 		BBLAYERS ?= " \
 		  ${TOPDIR}/../poky/meta \
 		  ${TOPDIR}/../poky/meta-poky \
+		  ${TOPDIR}/../poky/meta-yocto-bsp \
 		  ${TOPDIR}/../meta-openembedded/meta-oe \
 		  ${TOPDIR}/../meta-openembedded/meta-networking \
 		  ${TOPDIR}/../meta-openembedded/meta-perl \
