@@ -1,11 +1,10 @@
 #!binbash
-mkdir yocto
-cd yocto
-
 git clone https://github.com/congsonbk27/yocto_beaglebone_black.git
 cd yocto_beaglebone_black
-git checkout yocto_beaglebone_black
-cd ..
+git checkout .
+
+mkdir yocto
+cd yocto
 
 git clone -b dunfell https://github.com/openembedded/meta-openembedded.git
 cd meta-openembedded
