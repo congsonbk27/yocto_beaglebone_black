@@ -38,8 +38,8 @@ cd ..
 
 source poky/oe-init-build-env
 
-cp yocto_beaglebone_black/bblayers.conf conf
-cp yocto_beaglebone_black/local.conf conf
+cp ../../bblayers.conf conf
+cp ../../local.conf conf
 
 bitbake core-image-minimal
 
