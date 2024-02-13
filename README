@@ -1,37 +1,51 @@
-Build_yocto BeagleBone black:
-	mkdir yocto
-	cd yocto
-	git clone -b dunfell git://git.yoctoproject.org/poky.git poky
-	git clone -b dunfell https://github.com/openembedded/meta-openembedded.git
-	git clone -b dunfell https://github.com/meta-qt5/meta-qt5.git
-	git clone -b dunfell git://git.yoctoproject.org/meta-security.git
-	git clone -b dunfell https://github.com/jumpnow/meta-jumpnow.git
-	git clone -b dunfell https://github.com/jumpnow/meta-bbb.git
-	source poky/oe-init-build-env
-	cp ../meta-bbb/conf/local.conf.sample conf/local.conf
-	cp ../meta-bbb/conf/bblayers.conf.sample conf/bblayers.conf
+#!binbash
+mkdir yocto
+cd yocto
 
-	vim conf/bblayers.conf 
-	--> change dirrectory meta in BBLAYERS ?= " to right directory
-		BBLAYERS ?= " \
-		  ${TOPDIR}/../poky/meta \
-		  ${TOPDIR}/../poky/meta-poky \
-		  ${TOPDIR}/../poky/meta-yocto-bsp \
-		  ${TOPDIR}/../meta-openembedded/meta-oe \
-		  ${TOPDIR}/../meta-openembedded/meta-networking \
-		  ${TOPDIR}/../meta-openembedded/meta-perl \
-		  ${TOPDIR}/../meta-openembedded/meta-python \
-		  ${TOPDIR}/../meta-qt5 \
-		  ${TOPDIR}/../meta-security \
-		  ${TOPDIR}/../meta-jumpnow \
-		  ${TOPDIR}/../meta-bbb \
-		"
-	vim conf/local.conf
-		add:
-		BB_NUMBER_THREADS = "12"
-		PARALLEL_MAKE = "-j 12"
+git clone https://github.com/congsonbk27/yocto_beaglebone_black.git
+cd yocto_beaglebone_black
+git checkout yocto_beaglebone_black
+cd ..
 
-	bitbake core-image-minimal
-	
-Build sdk:
-	bitbake core-image-minimal -c populate_sdk
+git clone -b dunfell https://github.com/openembedded/meta-openembedded.git
+cd meta-openembedded
+git checkout fc632d5bb0936e91e4e0191547b9aa8ca47b4ffe
+cd ..
+
+git clone -b dunfell https://github.com/meta-qt5/meta-qt5.git
+cd meta-qt5
+git checkout 5ef3a0ffd3324937252790266e2b2e64d33ef34f
+cd ..
+
+git clone -b dunfell git://git.yoctoproject.org/meta-security.git
+cd meta-security
+git checkout eb631c12be585d18beddbb41f6035772b2cb17d5
+cd ..
+
+git clone -b dunfell https://github.com/jumpnow/meta-jumpnow.git
+cd meta-jumpnow
+git checkout b3995636741be0d219a50035c98ded8b48590888
+cd ..
+
+git clone -b dunfell https://github.com/jumpnow/meta-bbb.git
+cd meta-bbb
+git checkout fa02d8e9079c1cc18f83527588a9dd2747293992
+cd ..
+
+git clone -b dunfell git://git.yoctoproject.org/poky.git poky
+cd poky 
+git checkout ef0c19babe32355bd61a9dc3e99d8ec414f0e42a
+cd ..
+
+source poky/oe-init-build-env
+
+cp yocto_beaglebone_black/bblayers.conf conf
+cp yocto_beaglebone_black/local.conf conf
+
+bitbake core-image-minimal
+
+bitbake core-image-weston
+
+bitbake core-image-sato
+
+bitbake core-image-sato -c populate_sdk
